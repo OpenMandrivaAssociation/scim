@@ -24,14 +24,6 @@ Patch2:		scim-system-default-config.patch
 # add scim-restart (from fedora)
 Patch3:		scim-add-restart.patch
 
-# Patches from openSUSE
-# Novell bug#232014
-Patch4:		scim-1.4.5-fix-for-openoffice.patch
-# Novell bug#224796
-Patch5:		scim-1.4.5-compose-key-fix.patch
-
-Patch6:		scim-1.4.5-do-not-return-random-data-in-a-function.patch
-
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Requires:		pango
 Requires:		%{libname} = %{version}
@@ -71,9 +63,6 @@ Headers of %{name} for development.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p0
-%patch5 -p0
-%patch6 -p1
 
 # update icons
 cp -p scim-icons/icons/*.png data/icons
