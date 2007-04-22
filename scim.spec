@@ -24,6 +24,10 @@ Patch2:		scim-system-default-config.patch
 # add scim-restart (from fedora)
 Patch3:		scim-add-restart.patch
 
+# Patches from openSUSE
+# Novell bug#232014
+Patch4:		scim-1.4.5-fix-for-openoffice.patch
+
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Requires:		pango
 Requires:		%{libname} = %{version}
@@ -63,6 +67,7 @@ Headers of %{name} for development.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p0
 
 # update icons
 cp -p scim-icons/icons/*.png data/icons
