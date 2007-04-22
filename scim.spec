@@ -1,5 +1,5 @@
-%define version	1.4.5
-%define release	%mkrel 3
+%define version	1.4.6
+%define release	%mkrel 1
 
 %define libname_orig lib%{name}
 %define libname %mklibname %{name} 8
@@ -12,7 +12,7 @@ Group:		System/Internationalization
 License:	LGPL
 # alt URL:	http://sourceforge.net/projects/scim/
 URL:		http://www.scim-im.org
-Source0:	http://ufpr.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.bz2
+Source0:	http://ufpr.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 
 # new icons (from fedora)
 Source1:	scim-icons-0.6.tar.bz2
