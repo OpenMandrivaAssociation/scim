@@ -1,5 +1,5 @@
 %define version	1.4.6
-%define release	%mkrel 1
+%define release	%mkrel 2
 
 %define libname_orig lib%{name}
 %define libname %mklibname %{name} 8
@@ -15,9 +15,10 @@ URL:		http://www.scim-im.org
 Source0:	http://ufpr.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 
 # new icons (from fedora)
-Source1:	scim-icons-0.6.tar.bz2
+Source1:	scim-icons-0.7.tar.bz2
 
 # change hot keys per locale (from fedora)
+Source2:	scim-system-config
 Patch1:		scim-initial-locale-hotkey-186861.patch
 Patch2:		scim-system-default-config.patch
 
@@ -67,6 +68,10 @@ Headers of %{name} for development.
 # update icons
 cp -p scim-icons/icons/*.png data/icons
 cp -p scim-icons/pixmaps/*.png data/pixmaps
+
+# update the config file
+mv configs/config{,.orig} 
+cp -p %{SOURCE2} configs/config
 
 %build
 [[ -f configure ]] || ./bootstrap
