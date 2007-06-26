@@ -1,8 +1,9 @@
-%define version	1.4.6
-%define release	%mkrel 2
+%define version	1.4.7
+%define release	%mkrel 1
 
 %define libname_orig lib%{name}
 %define libname %mklibname %{name} 8
+%define develname %mklibname -d %{name}
 
 Name:		scim
 Summary:	Smart Common Input Method platform
@@ -48,15 +49,16 @@ Obsoletes:		libscim0
 %description -n %{libname}
 SCIM library.
 
-%package -n %{libname}-devel
+%package -n %{develname}
 Summary:	Headers of SCIM for development
 Group:		Development/C
 Requires:		%{libname} = %{version}
 Provides:		%{name}-devel = %{version}-%{release}
 Provides:		%{libname_orig}-devel = %{version}-%{release}
 Obsoletes:		libscim0-devel
+Obsoletes:	%{libname}-devel
 
-%description -n %{libname}-devel
+%description -n %{develname}
 Headers of %{name} for development.
 
 %prep
@@ -134,7 +136,7 @@ gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
 %{_libdir}/scim-1.0/*/*/*.so
 %{_libdir}/gtk-2.0/immodules/im-scim.so
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc COPYING
 %{_libdir}/lib*.so
