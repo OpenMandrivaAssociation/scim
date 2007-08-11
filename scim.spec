@@ -1,8 +1,9 @@
 %define version	1.4.7
-%define release	%mkrel 1
+%define release	%mkrel 2
 
+%define major 8
 %define libname_orig lib%{name}
-%define libname %mklibname %{name} 8
+%define libname %mklibname %{name} %major
 %define develname %mklibname -d %{name}
 
 Name:		scim
@@ -129,10 +130,11 @@ gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
 %files -n %{libname}
 %defattr(-,root,root)
 %doc COPYING
+%dir %{_libdir}/scim-1.0
 %dir %{_libdir}/scim-1.0/Config
 %dir %{_libdir}/scim-1.0/FrontEnd
 %dir %{_libdir}/scim-1.0/SetupUI
-%{_libdir}/lib*.so.*
+%{_libdir}/lib*.so.%{major}*
 %{_libdir}/scim-1.0/*/*/*.so
 %{_libdir}/gtk-2.0/immodules/im-scim.so
 
@@ -143,8 +145,7 @@ gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
 %{_libdir}/lib*.a
 %{_libdir}/lib*.la
 %{_libdir}/pkgconfig/*.pc
+%dir %{_includedir}/scim-1.0
 %{_includedir}/scim-1.0/*.h
 %{_includedir}/scim-1.0/gtk/*.h
 %{_includedir}/scim-1.0/x11/scim_x11_utils.h
-
-
