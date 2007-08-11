@@ -1,5 +1,5 @@
 %define version	1.4.7
-%define release	%mkrel 3
+%define release	%mkrel 4
 
 %define major 8
 %define libname_orig lib%{name}
@@ -19,11 +19,12 @@ Source0:	http://ufpr.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.t
 # new icons (from fedora)
 Source1:	scim-icons-0.7.tar.bz2
 
-# add scim dir macros
-Source2:	scim.macros
-
 # change hot keys per locale (from fedora)
 Source2:	scim-system-config
+
+# add scim dir macros
+Source3:	scim.macros
+
 Patch1:		scim-initial-locale-hotkey-186861.patch
 Patch2:		scim-system-default-config.patch
 
@@ -90,8 +91,6 @@ cp -p %{SOURCE2} configs/config
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=${RPM_BUILD_ROOT} install-strip
 
-mkdir -p ${RPM_BUILD_ROOT}/%{_libdir}/scim-1.0/{Config,FrontEnd,IMEngine,SetupUI,Helper}
-
 # remove unneeded files
 rm -f ${RPM_BUILD_ROOT}/%{_libdir}/scim-1.0/*/*/*.{a,la}
 rm -f ${RPM_BUILD_ROOT}/%{_libdir}/gtk-2.0/immodules/im-scim.{a,la}
@@ -102,7 +101,7 @@ mkdir -p docs/dist/manual/zh_CN/figures/
 	cp -a docs/manual/zh_CN/figures/*.png docs/dist/manual/zh_CN/figures/
 
 # install scim.macros
-install -D -m0644 %SOURCE2 %buildroot%{_sysconfdir}/rpm/macros.d/scim.macros
+install -D -m0644 %SOURCE3 %buildroot%{_sysconfdir}/rpm/macros.d/scim.macros
 
 %find_lang %{name}
 
@@ -136,12 +135,8 @@ gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
 %files -n %{libname}
 %defattr(-,root,root)
 %doc COPYING
-%dir %{_libdir}/scim-1.0
-%dir %{_libdir}/scim-1.0/Config
-%dir %{_libdir}/scim-1.0/FrontEnd
-%dir %{_libdir}/scim-1.0/SetupUI
+%{_libdir}/scim-1.0
 %{_libdir}/lib*.so.%{major}*
-%{_libdir}/scim-1.0/*/*/*.so
 %{_libdir}/gtk-2.0/immodules/im-scim.so
 
 %files -n %{develname}
