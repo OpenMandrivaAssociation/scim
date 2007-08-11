@@ -1,5 +1,5 @@
 %define version	1.4.7
-%define release	%mkrel 2
+%define release	%mkrel 3
 
 %define major 8
 %define libname_orig lib%{name}
@@ -18,6 +18,9 @@ Source0:	http://ufpr.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.t
 
 # new icons (from fedora)
 Source1:	scim-icons-0.7.tar.bz2
+
+# add scim dir macros
+Source2:	scim.macros
 
 # change hot keys per locale (from fedora)
 Source2:	scim-system-config
@@ -98,6 +101,9 @@ mkdir -p docs/dist/manual/zh_CN/figures/
 	cp -a docs/manual/zh_CN/user-manual.{html,xml} docs/dist/manual/zh_CN/
 	cp -a docs/manual/zh_CN/figures/*.png docs/dist/manual/zh_CN/figures/
 
+# install scim.macros
+install -D -m0644 %SOURCE2 %buildroot%{_sysconfdir}/rpm/macros.d/scim.macros
+
 %find_lang %{name}
 
 %clean
@@ -149,3 +155,4 @@ gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
 %{_includedir}/scim-1.0/*.h
 %{_includedir}/scim-1.0/gtk/*.h
 %{_includedir}/scim-1.0/x11/scim_x11_utils.h
+%{_sysconfdir}/rpm/macros.d/scim.macros
