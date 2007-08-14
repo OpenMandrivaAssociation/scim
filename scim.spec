@@ -1,5 +1,5 @@
 %define version	1.4.7
-%define release	%mkrel 4
+%define release	%mkrel 5
 
 %define major 8
 %define libname_orig lib%{name}
@@ -130,12 +130,16 @@ gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
 %{_datadir}/control-center-2.0/capplets/*
 %{_datadir}/pixmaps/*.png
 %{_datadir}/scim/icons/*.png
-%{_libexecdir}/scim*/[^1]*
+%{_libexecdir}/scim-1.0/[^1]*
 
 %files -n %{libname}
 %defattr(-,root,root)
 %doc COPYING
-%{_libdir}/scim-1.0
+%{_libexecdir}/scim-1.0
+%exclude %{_libexecdir}/scim-1.0/scim-helper-launcher
+%exclude %{_libexecdir}/scim-1.0/scim-helper-manager
+%exclude %{_libexecdir}/scim-1.0/scim-launcher
+%exclude %{_libexecdir}/scim-1.0/scim-panel-gtk
 %{_libdir}/lib*.so.%{major}*
 %{_libdir}/gtk-2.0/immodules/im-scim.so
 
