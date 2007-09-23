@@ -1,5 +1,5 @@
 %define version	1.4.7
-%define release	%mkrel 5
+%define release	%mkrel 6
 
 %define major 8
 %define libname_orig lib%{name}
@@ -25,7 +25,7 @@ Source2:	scim-system-config
 # add scim dir macros
 Source3:	scim.macros
 
-Patch1:		scim-initial-locale-hotkey-186861.patch
+Patch1:		scim-initial-locale-hotkey-20070922.patch
 Patch2:		scim-system-default-config.patch
 
 # add scim-restart (from fedora)
