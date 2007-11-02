@@ -1,9 +1,9 @@
 %define version	1.4.7
-%define release	%mkrel 6
+%define release	%mkrel 7
 
+%define apiver 1.0
 %define major 8
-%define libname_orig lib%{name}
-%define libname %mklibname %{name} %major
+%define libname %mklibname %{name} %apiver %major
 %define develname %mklibname -d %{name}
 
 Name:		scim
@@ -11,7 +11,7 @@ Summary:	Smart Common Input Method platform
 Version:	%{version}
 Release:	%{release}
 Group:		System/Internationalization
-License:	LGPL
+License:	LGPLv2+
 # alt URL:	http://sourceforge.net/projects/scim/
 URL:		http://www.scim-im.org
 Source0:	http://ufpr.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
@@ -32,12 +32,8 @@ Patch2:		scim-system-default-config.patch
 Patch3:		scim-add-restart.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
-Requires:		pango
-Requires:		%{libname} = %{version}
-Requires:		gtk+2.0 >= 2.4.4-2mdk
-Requires(pre):		%_bindir/gtk-query-immodules-2.0
-BuildRequires:		gtk+2-devel pango-devel libltdl-devel atk intltool
-BuildRequires:		libGConf2-devel
+BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
+BuildRequires:	libGConf2-devel
 
 %description
 SCIM is a developing platform to significant reduce the difficulty of 
@@ -47,9 +43,9 @@ input method development.
 %package -n %{libname}
 Summary:	SCIM library
 Group:		System/Internationalization
-Provides:		%{libname_orig} = %{version}-%{release}
-Requires:		scim
-Obsoletes:		libscim0
+Requires:	%name = %version-%release
+Obsoletes:	%mklibname scim 0
+Obsoletes:	%mklibname scim 8
 
 %description -n %{libname}
 SCIM library.
@@ -57,11 +53,10 @@ SCIM library.
 %package -n %{develname}
 Summary:	Headers of SCIM for development
 Group:		Development/C
-Requires:		%{libname} = %{version}
-Provides:		%{name}-devel = %{version}-%{release}
-Provides:		%{libname_orig}-devel = %{version}-%{release}
-Obsoletes:		libscim0-devel
-Obsoletes:	%{libname}-devel
+Requires:	%{libname} = %{version}
+Provides:	%{name}-devel = %{version}-%{release}
+Obsoletes:	%mklibname -d scim 0
+Obsoletes:	%mklibname -d scim 8
 
 %description -n %{develname}
 Headers of %{name} for development.
