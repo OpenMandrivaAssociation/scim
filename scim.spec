@@ -95,6 +95,7 @@ Common files for scim input method.
 %{_libdir}/scim-1.0/%{scim_api}/Helper
 %dir %{_libdir}/scim-1.0/%{scim_api}/IMEngine
 %{_libdir}/scim-1.0/%{scim_api}/IMEngine/socket.so
+%{_libdir}/scim-1.0/%{scim_api}/IMEngine/rawcode.so
 %{_libdir}/scim-1.0/%{scim_api}/SetupUI
 %{_libdir}/scim-1.0/%{scim_api}/Config
 %{_datadir}/applications/*.desktop
@@ -138,6 +139,7 @@ Headers of %{name} for development.
 
 %files -n %{develname}
 %defattr(-,root,root)
+%doc docs/html/*
 %{_libdir}/lib*.so
 %{_libdir}/lib*.a
 %{_libdir}/lib*.la
@@ -176,11 +178,6 @@ make DESTDIR=${RPM_BUILD_ROOT} install-strip
 # remove unneeded files
 rm -f ${RPM_BUILD_ROOT}/%{_libdir}/scim-1.0/*/*/*.{a,la}
 rm -f ${RPM_BUILD_ROOT}/%{_libdir}/gtk-2.0/immodules/im-scim.{a,la}
-
-# install user manual
-mkdir -p docs/dist/manual/zh_CN/figures/
-	cp -a docs/manual/zh_CN/user-manual.{html,xml} docs/dist/manual/zh_CN/
-	cp -a docs/manual/zh_CN/figures/*.png docs/dist/manual/zh_CN/figures/
 
 # install scim.macros
 install -D -m0644 %SOURCE3 %buildroot%{_sysconfdir}/rpm/macros.d/scim.macros
