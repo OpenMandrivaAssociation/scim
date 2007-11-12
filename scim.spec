@@ -86,9 +86,14 @@ Common files for scim input method.
 
 %files common
 %defattr(-,root,root,-)
-%{_bindir}/scim-setup*
+%{_bindir}/scim-setup
+%{_bindir}/scim-config-agent
 %dir %{_sysconfdir}/scim
 %config(noreplace) %{_sysconfdir}/scim/*
+%{_libdir}/scim-1.0/scim-helper-launcher
+%{_libdir}/scim-1.0/scim-helper-manager
+%{_libdir}/scim-1.0/scim-launcher
+%{_libdir}/scim-1.0/scim-panel-gtk
 %dir %{_libdir}/scim-1.0/%{scim_api}
 %{_libdir}/scim-1.0/%{scim_api}/Filter
 %{_libdir}/scim-1.0/%{scim_api}/FrontEnd
@@ -101,6 +106,7 @@ Common files for scim input method.
 %{_datadir}/applications/*.desktop
 %{_datadir}/%{name}
 %{_datadir}/pixmaps/*
+%{_datadir}/control-center-2.0/capplets/scim-setup.desktop
 
 #----------------------------------------------------------------------
 %package gtk
