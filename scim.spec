@@ -28,7 +28,6 @@ Patch2:		scim-system-default-config.patch
 Patch3:		scim-add-restart.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
-BuildRequires:	libGConf2-devel
 # provides scim-client so that we could prefer scim-bridge over scim or the reverse
 Provides:	scim-client
 
@@ -174,7 +173,7 @@ cp -p %{SOURCE2} configs/config
 %build
 [[ -f configure ]] || ./bootstrap
 
-%configure2_5x --disable-schemas-install
+%configure2_5x
 %make
 
 %install
