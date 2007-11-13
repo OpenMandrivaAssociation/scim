@@ -45,6 +45,7 @@ input method development.
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING README ChangeLog TODO
 %{_bindir}/scim
+%{_bindir}/scim-restart
 
 #----------------------------------------------------------------------
 %package -n %{libname}
@@ -171,7 +172,7 @@ mv configs/config{,.orig}
 cp -p %{SOURCE2} configs/config
 
 %build
-[[ -f configure ]] || ./bootstrap
+./bootstrap
 
 %configure2_5x
 %make
