@@ -1,5 +1,5 @@
 %define version	1.4.7
-%define release	%mkrel 8
+%define release	%mkrel 9
 
 %define apiver 1.0
 %define scim_api 1.4.0
@@ -29,7 +29,7 @@ Patch3:		scim-add-restart.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
 # provides scim-client so that we could prefer scim-bridge over scim or the reverse
-Provides:	scim-client
+Provides:	scim-client = %{scim_api}
 
 Requires:	%{name}-common = %version-%release
 # fwang: in fact, scim could interact with gtk2 apps via xim
