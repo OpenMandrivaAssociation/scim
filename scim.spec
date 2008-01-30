@@ -1,5 +1,5 @@
 %define version	1.4.7
-%define release	%mkrel 9
+%define release	%mkrel 10
 
 %define apiver 1.0
 %define scim_api 1.4.0
@@ -41,7 +41,7 @@ Conflicts:	%{mklibname scim 8} < 1.4.7-8
 SCIM is a developing platform to significant reduce the difficulty of 
 input method development. 
 
-%files -f %{name}.lang
+%files
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING README ChangeLog TODO
 %{_bindir}/scim
@@ -51,7 +51,7 @@ input method development.
 %package -n %{libname}
 Summary:	SCIM library
 Group:		System/Internationalization
-Requires:	%name = %version-%release
+Requires:	%name-common = %version
 Obsoletes:	%mklibname scim 0
 Obsoletes:	%mklibname scim 8
 Conflicts:	%{name} < 1.4.7-8
@@ -73,7 +73,7 @@ Group:          System/Internationalization
 Requires:       %{libname} = %version-%release
 Conflicts:      %{libname} < 1.4.7-8
 Conflicts:	%{mklibname scim 8} < 1.4.7-8
-Conflicts:	%{name} < 1.4.7-8
+Conflicts:	%{name} < 1.4.7-10
 
 %description common
 Common files for scim input method.
@@ -84,7 +84,7 @@ Common files for scim input method.
 %postun common
 %update_menus
 
-%files common
+%files common -f %name.lang
 %defattr(-,root,root,-)
 %{_bindir}/scim-setup
 %{_bindir}/scim-config-agent
