@@ -82,11 +82,15 @@ Conflicts:	%{name} < 1.4.7-10
 %description common
 Common files for scim input method.
 
+%if %mdkversion < 200900
 %post common
 %update_menus
+%endif
 
+%if %mdkversion < 200900
 %postun common
 %update_menus
+%endif
 
 %files common -f %name.lang
 %defattr(-,root,root,-)
