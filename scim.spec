@@ -26,6 +26,7 @@ Patch1:		scim-initial-locale-hotkey-20070922.patch
 Patch2:		scim-system-default-config.patch
 # add scim-restart (from fedora)
 Patch3:		scim-add-restart.patch
+Patch4:		scim-1.4.7-fix-underlink.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
 # provides scim-client so that we could prefer scim-bridge over scim or the reverse
@@ -170,6 +171,7 @@ Headers of %{name} for development.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p0
 
 # update icons
 cp -p scim-icons/icons/*.png data/icons
