@@ -1,5 +1,5 @@
 %define version	1.4.7
-%define release	%mkrel 12
+%define release	%mkrel 13
 
 %define apiver 1.0
 %define scim_api 1.4.0
