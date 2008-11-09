@@ -1,5 +1,5 @@
 %define version	1.4.7
-%define release	%mkrel 13
+%define release	%mkrel 14
 
 %define apiver 1.0
 %define scim_api 1.4.0
@@ -23,10 +23,11 @@ Source2:	scim-system-config
 # add scim dir macros
 Source3:	scim.macros
 Patch1:		scim-initial-locale-hotkey-20070922.patch
-Patch2:		scim-system-default-config.patch
 # add scim-restart (from fedora)
 Patch3:		scim-add-restart.patch
 Patch4:		scim-1.4.7-fix-underlink.patch
+Patch5:		scim-1.4.7-support-more-utf8-locales.patch
+Patch6:		scim-1.4.7-fix-gdm.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
 # provides scim-client so that we could prefer scim-bridge over scim or the reverse
@@ -169,9 +170,10 @@ Headers of %{name} for development.
 %prep
 %setup -q -a1
 %patch1 -p1
-%patch2 -p1
 %patch3 -p1
 %patch4 -p0
+%patch5 -p0
+%patch6 -p1
 
 # update icons
 cp -p scim-icons/icons/*.png data/icons
