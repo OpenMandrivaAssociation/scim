@@ -1,5 +1,5 @@
-%define version	1.4.7
-%define release	%mkrel 14
+%define version	1.4.8
+%define release	%mkrel 1
 
 %define apiver 1.0
 %define scim_api 1.4.0
@@ -170,7 +170,7 @@ Headers of %{name} for development.
 %prep
 %setup -q -a1
 %patch1 -p1
-%patch3 -p1
+%patch3 -p1 -b .restart
 %patch4 -p0
 %patch5 -p0
 %patch6 -p1
