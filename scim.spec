@@ -1,4 +1,4 @@
-%define version	1.4.8
+%define version	1.4.9
 %define release	%mkrel 1
 
 %define apiver 1.0
@@ -28,6 +28,7 @@ Patch3:		scim-add-restart.patch
 Patch4:		scim-1.4.7-fix-underlink.patch
 Patch5:		scim-1.4.7-support-more-utf8-locales.patch
 Patch6:		scim-1.4.7-fix-gdm.patch
+Patch7:		scim-1.4.7-syslibltdl.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
 # provides scim-client so that we could prefer scim-bridge over scim or the reverse
@@ -174,6 +175,7 @@ Headers of %{name} for development.
 %patch4 -p0
 %patch5 -p0
 %patch6 -p1
+%patch7 -p1
 
 # update icons
 cp -p scim-icons/icons/*.png data/icons
@@ -184,9 +186,8 @@ mv configs/config{,.orig}
 cp -p %{SOURCE2} configs/config
 
 %build
-./bootstrap
-
-%configure2_5x
+autoreconf -fi
+%configure2_5x --disable-ltdl-install
 %make
 
 %install
