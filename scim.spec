@@ -31,8 +31,6 @@ Patch6:		scim-1.4.7-fix-gdm.patch
 Patch7:		scim-1.4.7-syslibltdl.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
-# provides scim-client so that we could prefer scim-bridge over scim or the reverse
-Provides:	scim-client = %{scim_api}
 
 Requires:	%{name}-common = %version-%release
 # fwang: in fact, scim could interact with gtk2 apps via xim
