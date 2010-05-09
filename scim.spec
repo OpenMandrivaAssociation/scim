@@ -1,5 +1,5 @@
 %define version	1.4.9
-%define release	%mkrel 4
+%define release	%mkrel 5
 
 %define apiver 1.0
 %define scim_api 1.4.0
@@ -29,6 +29,7 @@ Patch4:		scim-1.4.7-fix-underlink.patch
 Patch5:		scim-1.4.7-support-more-utf8-locales.patch
 Patch6:		scim-1.4.7-fix-gdm.patch
 Patch7:		scim-1.4.7-syslibltdl.patch
+Patch8:		scim-1.4.7-trayicon.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
 
@@ -174,6 +175,7 @@ Headers of %{name} for development.
 %patch5 -p0
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 # update icons
 cp -p scim-icons/icons/*.png data/icons
