@@ -1,5 +1,5 @@
 %define version	1.4.9
-%define release	%mkrel 5
+%define release	%mkrel 6
 
 %define apiver 1.0
 %define scim_api 1.4.0
@@ -23,13 +23,12 @@ Source2:	scim-system-config
 # add scim dir macros
 Source3:	scim.macros
 Patch1:		scim-initial-locale-hotkey-20070922.patch
-# add scim-restart (from fedora)
-Patch3:		scim-add-restart.patch
 Patch4:		scim-1.4.7-fix-underlink.patch
 Patch5:		scim-1.4.7-support-more-utf8-locales.patch
 Patch6:		scim-1.4.7-fix-gdm.patch
 Patch7:		scim-1.4.7-syslibltdl.patch
 Patch8:		scim-1.4.7-trayicon.patch
+Patch9:		scim-1.4.9-fix-disappeared-status-icon.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
 
@@ -47,7 +46,6 @@ input method development.
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING README ChangeLog TODO
 %{_bindir}/scim
-%{_bindir}/scim-restart
 
 #----------------------------------------------------------------------
 %package -n %{libname}
@@ -157,7 +155,6 @@ Headers of %{name} for development.
 %defattr(-,root,root)
 %doc docs/html/*
 %{_libdir}/lib*.so
-%{_libdir}/lib*.a
 %{_libdir}/lib*.la
 %{_libdir}/pkgconfig/*.pc
 %dir %{_includedir}/scim-1.0
@@ -170,12 +167,12 @@ Headers of %{name} for development.
 %prep
 %setup -q -a1
 %patch1 -p1
-%patch3 -p1 -b .restart
 %patch4 -p0
 %patch5 -p0
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 # update icons
 cp -p scim-icons/icons/*.png data/icons
@@ -187,12 +184,12 @@ cp -p %{SOURCE2} configs/config
 
 %build
 autoreconf -fi
-%configure2_5x --disable-ltdl-install
+%configure2_5x --disable-static --enable-ld-version-script
 %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=${RPM_BUILD_ROOT} install-strip
+%makeinstall_std
 
 # remove unneeded files
 rm -f ${RPM_BUILD_ROOT}/%{_libdir}/scim-1.0/*/*/*.{a,la}
