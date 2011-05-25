@@ -149,7 +149,6 @@ Headers of %{name} for development.
 
 %files -n %{develname}
 %defattr(-,root,root)
-%doc docs/html/*
 %{_libdir}/lib*.so
 %{_libdir}/lib*.la
 %{_libdir}/pkgconfig/*.pc
