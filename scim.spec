@@ -1,5 +1,5 @@
-%define version	1.4.9
-%define release	%mkrel 7
+%define version	1.4.10
+%define release	%mkrel 1
 
 %define apiver 1.0
 %define scim_api 1.4.0
@@ -15,7 +15,7 @@ Group:		System/Internationalization
 License:	LGPLv2+
 # alt URL:	http://sourceforge.net/projects/scim/
 URL:		http://www.scim-im.org
-Source0:	http://ufpr.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://ufpr.dl.sourceforge.net/sourceforge/%{name}/%{name}_%{version}.tar.gz
 # new icons (from fedora)
 Source1:	scim-icons-0.7.tar.bz2
 # change hot keys per locale (from fedora)
@@ -25,10 +25,6 @@ Source3:	scim.macros
 Patch1:		scim-initial-locale-hotkey-20070922.patch
 Patch4:		scim-1.4.7-fix-underlink.patch
 Patch5:		scim-1.4.7-support-more-utf8-locales.patch
-Patch6:		scim-1.4.7-fix-gdm.patch
-Patch7:		scim-1.4.7-syslibltdl.patch
-Patch8:		scim-1.4.7-trayicon.patch
-Patch9:		scim-1.4.9-fix-disappeared-status-icon.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
 
@@ -169,10 +165,6 @@ Headers of %{name} for development.
 %patch1 -p1
 %patch4 -p0
 %patch5 -p0
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
 
 # update icons
 cp -p scim-icons/icons/*.png data/icons
