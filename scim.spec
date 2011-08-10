@@ -22,6 +22,7 @@ Source1:	scim-icons-0.7.tar.bz2
 Source2:	scim-system-config
 # add scim dir macros
 Source3:	scim.macros
+Patch0:		scim-1.4.11-r303.patch
 Patch1:		scim-initial-locale-hotkey-20070922.patch
 Patch4:		scim-1.4.7-fix-underlink.patch
 Patch5:		scim-1.4.7-support-more-utf8-locales.patch
@@ -161,6 +162,7 @@ Headers of %{name} for development.
 
 %prep
 %setup -q -a1
+%patch0 -p2 -R
 %patch1 -p1
 %patch4 -p0
 %patch5 -p0
