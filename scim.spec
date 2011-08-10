@@ -1,4 +1,4 @@
-%define version	1.4.10
+%define version	1.4.11
 %define release	%mkrel 1
 
 %define apiver 1.0
@@ -15,7 +15,7 @@ Group:		System/Internationalization
 License:	LGPLv2+
 # alt URL:	http://sourceforge.net/projects/scim/
 URL:		http://www.scim-im.org
-Source0:	http://ufpr.dl.sourceforge.net/sourceforge/%{name}/%{name}_%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/scim/%{name}-%{version}.tar.gz
 # new icons (from fedora)
 Source1:	scim-icons-0.7.tar.bz2
 # change hot keys per locale (from fedora)
