@@ -1,4 +1,4 @@
-%define version	1.4.11
+%define version	1.4.14
 %define release	%mkrel 1
 
 %define apiver 1.0
@@ -22,16 +22,15 @@ Source1:	scim-icons-0.7.tar.bz2
 Source2:	scim-system-config
 # add scim dir macros
 Source3:	scim.macros
-Patch0:		scim-1.4.11-r303.patch
+Patch0:		scim-1.4.14-compile.patch
 Patch1:		scim-initial-locale-hotkey-20070922.patch
-Patch4:		scim-1.4.7-fix-underlink.patch
 Patch5:		scim-1.4.7-support-more-utf8-locales.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires:	gtk+2-devel pango-devel libltdl-devel atk intltool
+BuildRequires:	pkgconfig(gdk-2.0) pkgconfig(pango) libtool-devel pkgconfig(atk) intltool
 
 Requires:	%{name}-common = %version-%release
 # fwang: in fact, scim could interact with gtk2 apps via xim
-Suggests:	%{name}-gtk
+#Suggests:	%{name}-gtk
 Conflicts:	%{libname} < 1.4.7-8
 Conflicts:	%{mklibname scim 8} < 1.4.7-8
 
@@ -91,6 +90,7 @@ Common files for scim input method.
 
 %files common -f %name.lang
 %defattr(-,root,root,-)
+%_bindir/scim-im-agent
 %{_bindir}/scim-setup
 %{_bindir}/scim-config-agent
 %dir %{_sysconfdir}/scim
@@ -115,16 +115,15 @@ Common files for scim input method.
 
 #----------------------------------------------------------------------
 %package gtk
-Summary:        SCIM Gtk IM module
+Summary:        SCIM Gtk 2.x IM module
 Group:          System/Internationalization
 Requires:       %libname = %version-%release
 Conflicts:      %{libname} < 1.4.7-8
 Conflicts:	%{mklibname scim 8} < 1.4.7-8
-Requires(post):	gtk+2.0
-Requires(postun): gtk+2.0
+Requires(post,postun):	gtk+2.0
 
 %description gtk
-This package provides a GTK input method module for SCIM.
+This package provides a GTK 2.x input method module for SCIM.
 
 %post gtk
 gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
@@ -134,7 +133,39 @@ gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
 
 %files gtk
 %defattr(-,root,root,-)
-%{_libdir}/gtk-2.0/immodules/im-scim.so
+%{_libdir}/gtk-2.0/*/immodules/im-scim.so
+
+#----------------------------------------------------------------------
+%package gtk3
+Summary:        SCIM Gtk 3.x IM module
+Group:          System/Internationalization
+Requires:       %libname = %version-%release
+Conflicts:      %{libname} < 1.4.7-8
+Conflicts:	%{mklibname scim 8} < 1.4.7-8
+BuildRequires:	pkgconfig(gtk+-3.0)
+
+%description gtk3
+This package provides a GTK 3.x input method module for SCIM.
+
+%files gtk3
+%defattr(-,root,root,-)
+%{_libdir}/gtk-3.0/*/immodules/im-scim.so
+
+#----------------------------------------------------------------------
+%package qt
+Summary:        SCIM Qt IM module
+Group:          System/Internationalization
+Requires:       %libname = %version-%release
+Conflicts:      %{libname} < 1.4.7-8
+Conflicts:	%{mklibname scim 8} < 1.4.7-8
+BuildRequires:	pkgconfig(QtGui)
+
+%description qt
+This package provides a Qt input method module for SCIM.
+
+%files qt
+%defattr(-,root,root,-)
+%{_libdir}/qt4/plugins/inputmethods/im-scim.so
 
 #----------------------------------------------------------------------
 %package -n %{develname}
@@ -151,7 +182,6 @@ Headers of %{name} for development.
 %files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/lib*.so
-%{_libdir}/lib*.la
 %{_libdir}/pkgconfig/*.pc
 %dir %{_includedir}/scim-1.0
 %{_includedir}/scim-1.0/*.h
@@ -162,10 +192,9 @@ Headers of %{name} for development.
 
 %prep
 %setup -q -a1
-%patch0 -p2 -R
-%patch1 -p1
-%patch4 -p0
-%patch5 -p0
+%patch0 -p1 -b .compile~
+%patch1 -p1 -b .hotkey~
+%patch5 -p0 -b .utf8~
 
 # update icons
 cp -p scim-icons/icons/*.png data/icons
@@ -176,7 +205,10 @@ mv configs/config{,.orig}
 cp -p %{SOURCE2} configs/config
 
 %build
-autoreconf -fi
+intltoolize --force
+aclocal -I m4
+automake -a
+autoconf
 %configure2_5x --disable-static --enable-ld-version-script
 %make
 
