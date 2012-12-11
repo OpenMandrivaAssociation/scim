@@ -25,7 +25,6 @@ Source3:	scim.macros
 Patch0:		scim-1.4.14-compile.patch
 Patch1:		scim-initial-locale-hotkey-20070922.patch
 Patch5:		scim-1.4.7-support-more-utf8-locales.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	pkgconfig(gdk-2.0) pkgconfig(pango) libtool-devel pkgconfig(atk) intltool
 
 Requires:	%{name}-common = %version-%release
@@ -39,7 +38,6 @@ SCIM is a developing platform to significant reduce the difficulty of
 input method development. 
 
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING README ChangeLog TODO
 %{_bindir}/scim
 
@@ -55,15 +53,7 @@ Conflicts:	%{name} < 1.4.7-8
 %description -n %{libname}
 SCIM library.
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
 %files -n %{libname}
-%defattr(-,root,root,-)
 %{_libdir}/*.so.%{major}*
 
 #----------------------------------------------------------------------
@@ -78,18 +68,7 @@ Conflicts:	%{name} < 1.4.7-10
 %description common
 Common files for scim input method.
 
-%if %mdkversion < 200900
-%post common
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun common
-%update_menus
-%endif
-
 %files common -f %name.lang
-%defattr(-,root,root,-)
 %_bindir/scim-im-agent
 %{_bindir}/scim-setup
 %{_bindir}/scim-config-agent
@@ -158,13 +137,12 @@ Group:          System/Internationalization
 Requires:       %libname = %version-%release
 Conflicts:      %{libname} < 1.4.7-8
 Conflicts:	%{mklibname scim 8} < 1.4.7-8
-BuildRequires:	pkgconfig(QtGui)
+BuildRequires:	qt4-devel
 
 %description qt
 This package provides a Qt input method module for SCIM.
 
 %files qt
-%defattr(-,root,root,-)
 %{_libdir}/qt4/plugins/inputmethods/im-scim.so
 
 #----------------------------------------------------------------------
@@ -180,7 +158,6 @@ Obsoletes:	%mklibname -d scim 8
 Headers of %{name} for development.
 
 %files -n %{develname}
-%defattr(-,root,root)
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
 %dir %{_includedir}/scim-1.0
@@ -213,7 +190,6 @@ autoconf
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
 # remove unneeded files
@@ -224,6 +200,3 @@ rm -f ${RPM_BUILD_ROOT}/%{_libdir}/gtk-2.0/immodules/im-scim.{a,la}
 install -D -m0644 %SOURCE3 %buildroot%{_sysconfdir}/rpm/macros.d/scim.macros
 
 %find_lang %{name}
-
-%clean
-rm -rf $RPM_BUILD_ROOT

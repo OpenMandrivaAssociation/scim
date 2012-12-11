@@ -1,0 +1,3 @@
+%scim_major	1.0
+%scim_api	1.4.0
+%scim_plugins_dir	%{_libdir}/scim-%{scim_major}/%{scim_api}
