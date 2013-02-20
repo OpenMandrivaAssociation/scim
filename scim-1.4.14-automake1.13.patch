@@ -1,0 +1,11 @@
+--- scim-1.4.14/configure.ac.orig	2013-02-20 23:02:12.095697657 +0000
++++ scim-1.4.14/configure.ac	2013-02-20 23:02:20.887698013 +0000
+@@ -79,7 +79,7 @@
+ 
+ # Init automake stuff
+ AM_INIT_AUTOMAKE
+-AM_CONFIG_HEADER([config.h])
++AC_CONFIG_HEADERS([config.h])
+ 
+ # Init libtool
+ LT_CONFIG_LTDL_DIR([libltdl])
