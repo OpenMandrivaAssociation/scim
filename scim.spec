@@ -188,6 +188,7 @@ intltoolize --force
 aclocal -I m4
 automake -a
 autoconf
+export LIBS="-lX11"
 %configure2_5x --disable-static --enable-ld-version-script
 %make
 
