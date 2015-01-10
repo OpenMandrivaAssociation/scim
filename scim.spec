@@ -183,6 +183,8 @@ mv configs/config{,.orig}
 cp -p %{SOURCE2} configs/config
 
 %build
+export CC=gcc
+export CXX=g++
 intltoolize --force
 aclocal -I m4
 automake -a
