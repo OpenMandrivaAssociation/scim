@@ -1,5 +1,5 @@
 %define version	1.4.14
-%define release	2
+%define release	3
 
 %define apiver 1.0
 %define scim_api 1.4.0
@@ -13,8 +13,7 @@ Version:	%{version}
 Release:	%{release}
 Group:		System/Internationalization
 License:	LGPLv2+
-# alt URL:	http://sourceforge.net/projects/scim/
-URL:		http://www.scim-im.org
+URL:		http://sourceforge.net/projects/scim/
 Source0:	http://downloads.sourceforge.net/scim/%{name}-%{version}.tar.gz
 # new icons (from fedora)
 Source1:	scim-icons-0.7.tar.bz2
