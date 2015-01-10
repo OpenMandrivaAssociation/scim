@@ -161,9 +161,7 @@ Headers of %{name} for development.
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
 %dir %{_includedir}/scim-1.0
-%{_includedir}/scim-1.0/*.h
-%{_includedir}/scim-1.0/gtk/*.h
-%{_includedir}/scim-1.0/x11/scim_x11_utils.h
+%{_includedir}/scim-1.0
 %{_sysconfdir}/rpm/macros.d/scim.macros
 #----------------------------------------------------------------------
 
