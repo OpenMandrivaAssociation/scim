@@ -160,7 +160,6 @@ Headers of %{name} for development.
 %files -n %{develname}
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
-%dir %{_includedir}/scim-1.0
 %{_includedir}/scim-1.0
 %{_sysconfdir}/rpm/macros.d/scim.macros
 #----------------------------------------------------------------------
