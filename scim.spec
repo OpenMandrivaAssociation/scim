@@ -1,6 +1,3 @@
-%define version	1.4.14
-%define release	3
-
 %define apiver 1.0
 %define scim_api 1.4.0
 %define major 8
@@ -9,8 +6,8 @@
 
 Name:		scim
 Summary:	Smart Common Input Method platform
-Version:	%{version}
-Release:	%{release}
+Version:	1.4.14
+Release:	4
 Group:		System/Internationalization
 License:	LGPLv2+
 URL:		http://sourceforge.net/projects/scim/
@@ -187,7 +184,7 @@ aclocal -I m4
 automake -a
 autoconf
 export LIBS="-lX11"
-%configure2_5x --disable-static --enable-ld-version-script
+%configure --disable-static --enable-ld-version-script
 %make
 
 %install
