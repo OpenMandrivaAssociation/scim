@@ -7,7 +7,7 @@
 Name:		scim
 Summary:	Smart Common Input Method platform
 Version:	1.4.14
-Release:	5
+Release:	6
 Group:		System/Internationalization
 License:	LGPLv2+
 URL:		http://sourceforge.net/projects/scim/
