@@ -9,11 +9,11 @@
 
 Name:		scim
 Summary:	Smart Common Input Method platform
-Version:	1.4.16
+Version:	1.4.17
 Release:	1
 Group:		System/Internationalization
 License:	LGPLv2+
-URL:		http://sourceforge.net/projects/scim/
+URL:		https://github.com/scim-im
 Source0:	http://downloads.sourceforge.net/scim/%{name}-%{version}.tar.gz
 # new icons (from fedora)
 Source1:	scim-icons-0.7.tar.bz2
