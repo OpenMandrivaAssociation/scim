@@ -1,6 +1,7 @@
 # The bootstrap script inside the source tree already does this
 %define _disable_rebuild_configure 1
 
+%bcond_with qt4
 %define apiver 1.0
 %define scim_api 1.4.0
 %define major 8
@@ -9,12 +10,12 @@
 
 Name:		scim
 Summary:	Smart Common Input Method platform
-Version:	1.4.17
-Release:	2
+Version:	1.4.18
+Release:	1
 Group:		System/Internationalization
 License:	LGPLv2+
 URL:		https://github.com/scim-im
-Source0:	http://downloads.sourceforge.net/scim/%{name}-%{version}.tar.gz
+Source0:	https://github.com/scim-im/scim/archive/%{version}.tar.gz
 # new icons (from fedora)
 Source1:	scim-icons-0.7.tar.bz2
 # change hot keys per locale (from fedora)
@@ -130,6 +131,7 @@ This package provides a GTK 3.x input method module for SCIM.
 %{_libdir}/gtk-3.0/*/immodules/im-scim.so
 
 #----------------------------------------------------------------------
+%if %{with qt4}
 %package qt
 Summary:        SCIM Qt IM module
 Group:          System/Internationalization
@@ -143,6 +145,7 @@ This package provides a Qt input method module for SCIM.
 
 %files qt
 %{_libdir}/qt4/plugins/inputmethods/im-scim.so
+%endif
 
 #----------------------------------------------------------------------
 %package -n %{develname}
