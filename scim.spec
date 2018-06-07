@@ -1,3 +1,5 @@
+%global optflags %{optflags} -Wno-c++11-narrowing
+
 # The bootstrap script inside the source tree already does this
 %define _disable_rebuild_configure 1
 
