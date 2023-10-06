@@ -7,13 +7,18 @@
 %define apiver 1.0
 %define scim_api 1.4.0
 %define major 8
-%define libname %mklibname %{name} %apiver %major
+%define oldlibname %mklibname %{name} %apiver %major
+%define libname %mklibname %{name}
+%define libxname %mklibname %{name}-x11utils
+%define libgname %mklibname %{name}-gtkutils
 %define develname %mklibname -d %{name}
+%define develxname %mklibname -d %{name}-x11utils
+%define develgname %mklibname -d %{name}-gtkutils
 
 Name:		scim
 Summary:	Smart Common Input Method platform
 Version:	1.4.18
-Release:	4
+Release:	5
 Group:		System/Internationalization
 License:	LGPLv2+
 URL:		https://github.com/scim-im
@@ -51,12 +56,37 @@ Requires:	%name-common = %version
 Obsoletes:	%mklibname scim 0
 Obsoletes:	%mklibname scim 8
 Conflicts:	%{name} < 1.4.7-8
+%rename %{oldlibname}
 
 %description -n %{libname}
 SCIM library.
 
 %files -n %{libname}
-%{_libdir}/*.so.%{major}*
+%{_libdir}/libscim-1.0.so.%{major}*
+
+#----------------------------------------------------------------------
+%package -n %{libxname}
+Summary:	SCIM X11 utility library
+Group:		System/Internationalization
+Requires:	%{libname} = %{EVRD}
+
+%description -n %{libxname}
+SCIM X11 utility library.
+
+%files -n %{libxname}
+%{_libdir}/libscim-x11utils-1.0.so.%{major}*
+
+#----------------------------------------------------------------------
+%package -n %{libgname}
+Summary:	SCIM GTK utility library
+Group:		System/Internationalization
+Requires:	%{libname} = %{EVRD}
+
+%description -n %{libgname}
+SCIM GTK utility library.
+
+%files -n %{libgname}
+%{_libdir}/libscim-gtkutils-1.0.so.%{major}*
 
 #----------------------------------------------------------------------
 %package common
@@ -79,23 +109,34 @@ Common files for scim input method.
 %{_libdir}/scim-1.0/scim-helper-launcher
 %{_libdir}/scim-1.0/scim-helper-manager
 %{_libdir}/scim-1.0/scim-launcher
-%{_libdir}/scim-1.0/scim-panel-gtk
 %dir %{_libdir}/scim-1.0/%{scim_api}
 %{_libdir}/scim-1.0/%{scim_api}/Filter
 %{_libdir}/scim-1.0/%{scim_api}/FrontEnd
-%{_libdir}/scim-1.0/%{scim_api}/Helper
 %dir %{_libdir}/scim-1.0/%{scim_api}/IMEngine
 %{_libdir}/scim-1.0/%{scim_api}/IMEngine/socket.so
 %{_libdir}/scim-1.0/%{scim_api}/IMEngine/rawcode.so
-%{_libdir}/scim-1.0/%{scim_api}/SetupUI
 %{_libdir}/scim-1.0/%{scim_api}/Config
-%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}
-%{_datadir}/pixmaps/*
-%{_datadir}/control-center-2.0/capplets/scim-setup.desktop
 
 #----------------------------------------------------------------------
 %package gtk
+Summary:	GTK input panel and configuration tools for scim
+Group:          System/Internationalization
+Requires:	%{name}-common = %{EVRD}
+
+%description gtk
+GTK input panel and configuration tools for scim
+
+%files gtk
+%{_libdir}/scim-1.0/scim-panel-gtk
+%{_libdir}/scim-1.0/%{scim_api}/SetupUI
+%{_libdir}/scim-1.0/%{scim_api}/Helper
+%{_datadir}/applications/*.desktop
+%{_datadir}/control-center-2.0/capplets/scim-setup.desktop
+%{_datadir}/pixmaps/*
+
+#----------------------------------------------------------------------
+%package gtk2
 Summary:        SCIM Gtk 2.x IM module
 Group:          System/Internationalization
 Requires:       %libname = %version-%release
@@ -103,16 +144,16 @@ Conflicts:      %{libname} < 1.4.7-8
 Conflicts:	%{mklibname scim 8} < 1.4.7-8
 Requires(post,postun):	gtk+2.0
 
-%description gtk
+%description gtk2
 This package provides a GTK 2.x input method module for SCIM.
 
-%post gtk
+%post gtk2
 gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
 
-%postun gtk
+%postun gtk2
 gtk-query-immodules-2.0 > %{_sysconfdir}/gtk-2.0/gtk.immodules.%_lib
 
-%files gtk
+%files gtk2
 %defattr(-,root,root,-)
 %{_libdir}/gtk-2.0/*/immodules/im-scim.so
 
@@ -162,10 +203,41 @@ Obsoletes:	%mklibname -d scim 8
 Headers of %{name} for development.
 
 %files -n %{develname}
-%{_libdir}/lib*.so
-%{_libdir}/pkgconfig/*.pc
-%{_includedir}/scim-1.0
+%{_libdir}/libscim-1.0.so
+%{_libdir}/pkgconfig/scim.pc
+%dir %{_includedir}/scim-1.0
+%{_includedir}/scim-1.0/*.h
 %{_sysconfdir}/rpm/macros.d/scim.macros
+
+#----------------------------------------------------------------------
+%package -n %{develxname}
+Summary:	Headers of SCIM for development
+Group:		Development/C
+Requires:	%{libxname} = %{EVRD}
+Requires:	%{develname} = %{EVRD}
+
+%description -n %{develxname}
+Headers of %{name} for development.
+
+%files -n %{develxname}
+%{_libdir}/libscim-x11utils-1.0.so
+%{_libdir}/pkgconfig/scim-x11utils.pc
+%{_includedir}/scim-1.0/x11
+
+#----------------------------------------------------------------------
+%package -n %{develgname}
+Summary:	Headers of SCIM for GTK development
+Group:		Development/C
+Requires:	%{libgname} = %{EVRD}
+Requires:	%{develxname} = %{EVRD}
+
+%description -n %{develgname}
+Headers of %{name} for GTK development.
+
+%files -n %{develgname}
+%{_libdir}/libscim-gtkutils-1.0.so
+%{_libdir}/pkgconfig/scim-gtkutils.pc
+%{_includedir}/scim-1.0/gtk
 #----------------------------------------------------------------------
 
 %prep
