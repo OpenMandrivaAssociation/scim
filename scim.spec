@@ -32,6 +32,11 @@ Source3:	scim.macros
 Patch0:		scim-1.4.14-compile.patch
 Patch1:		scim-initial-locale-hotkey-20070922.patch
 Patch5:		scim-1.4.7-support-more-utf8-locales.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(gdk-2.0) pkgconfig(pango) libtool-devel pkgconfig(atk) intltool
 
 Requires:	%{name}-common = %version-%release
